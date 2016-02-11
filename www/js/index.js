@@ -1,51 +1,38 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+// Initialize collapse button
+$(".button-collapse").sideNav();
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+String.prototype.replaceAll = function(search, replacement) {return this.replace(new RegExp(search, 'g'), replacement);};
 
-        console.log('Received Event: ' + id);
-    }
+var app={
+    defaultPage:'page1',
+    baseUrl:'http://localhost/test/angular/web',
+    mainContainer:$('#contentView'),
+    translateHtml:function(html,object){
+        $.each(object,function(index,value){html=html.replaceAll(index,value);});return html;
+    },
+    creteHtml:function(templateID,data){
+        return this.translateHtml($('#'+templateID).html(),data);
+    },
+    loadDefaultPage:function(){
+      this.loadPage(this.defaultPage);
+    },
+    appInit:function(){
+        this.loadDefaultPage();
+    },
+    renderHtml:function(html){
+        this.mainContainer.html(html);
+        this.pageInit();
+    },
+    loadPage:function(templateId){
+        console.log(templateId);
+        this.renderHtml(this.creteHtml(templateId,{}));
+    },
+    loadAjaxPage:function(url){
+        $.get(this.baseUrl+'/'+url,function(response){app.renderHtml(response);})
+    },
+    pageInit:function(){
+        $('a').on('click',function(e){e.preventDefault();app.loadPage(this.rel);});
+    },
+
 };
-
-app.initialize();
+app.appInit();
