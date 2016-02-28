@@ -4,11 +4,12 @@ $(".button-collapse").sideNav();
 String.prototype.replaceAll = function(search, replacement) {return this.replace(new RegExp(search, 'g'), replacement);};
 
 var app={
-    defaultPage:'site/login',
+    defaultPage:'site/memberdetails',
     baseUrl:'http://mr-solutions.in/yogesh/members/api/',
+    currentUrl:'',
     //baseUrl:'http://localhost/yogesh/members/api/',
     mainContainer:$('#contentView'),
-    id:0,
+    id:'',
     translateHtml:function(html,object){
         $.each(object,function(index,value){html=html.replaceAll(index,value);});return html;
     },
@@ -16,13 +17,18 @@ var app={
         return this.translateHtml($('#'+templateID).html(),data);
     },
     loadDefaultPage:function(){
-        this.loadAjaxPage(this.defaultPage);
+        if(this.id){this.loadAjaxPage(this.defaultPage);}else{this.loadAjaxPage('site/login');}
     },
     appInit:function(){
-        $('a').on('click',function(e){e.preventDefault();app.loadAjaxPage(this.href);});
+        $('#slide-out a').on('click',function(e){
+            e.preventDefault();
+            //$(this).parent().addClass('active').siblings().removeClass('active');
+            app.loadAjaxPage(this.href);
+            $('.button-collapse').sideNav('hide');
+        });
+        if(localStorage['id']){this.id=localStorage['id']}
         this.loadDefaultPage();
-        $('#slide-out a').on('click',function(){$('.button-collapse').sideNav('hide');});
-
+        if(this.id){this.setUserLogin();}
     },
     renderHtml:function(html){
         this.mainContainer.html(html);
@@ -35,12 +41,15 @@ var app={
     alert:function(msg){Materialize.toast(msg,2000);},
     loadAjaxPage:function(url){
         console.log(url);
+        if(url=='#'){return false;}
         url=url.split('/');
+        this.currentUrl=url[url.length-2]+'/'+url[url.length-1];
         $.ajax({
-            url:this.baseUrl+url[url.length-2]+'/'+url[url.length-1]+'?id='+app.id,
+            url:this.baseUrl+this.currentUrl+'?id='+app.id,
             type:'get',
             success:function(response){
                 app.renderHtml(response);
+                app.afterRout();
             },
             error:function(e){console.log(e);}
         });
@@ -49,9 +58,9 @@ var app={
         var $this=$(obj);
         $.ajax({url:$this.prop('action'),data:'id='+app.id+'&'+$this.serialize(),type:'post',datatype:'json',
             success:function(response){if(response.message){app.alert(response.message);}
-                if(response.id){app.id=response.id;}
-                if(response.name){app.id=response.name;}
-                if(response.email){app.id=response.email;}
+                if(response.id){localStorage['id']=app.id=response.id;app.setUserLogin();}
+                if(response.name){app.name=response.name;}
+                if(response.email){app.email=response.email;}
                 if(response.status){app.loadAjaxPage(response.url);}
             },
             error:function(e){console.log(e);}
@@ -61,6 +70,20 @@ var app={
         this.mainContainer.find('a').on('click',function(e){e.preventDefault();app.loadAjaxPage(this.href);});
         this.mainContainer.find('form').on('submit',function(e){e.preventDefault();app.AjaxForm(this);});
     },
-
+    setUserLogout:function(){
+        localStorage['id']=app.id='';
+        $('.site-memberdetails').hide();
+        $('.site-logout').hide();
+        $('.site-login').show();
+    },
+    setUserLogin:function(){
+        $('.site-logout').show();
+        $(".site-login").hide().next().show();
+    },
+    afterRout:function(){
+        if(app.currentUrl){
+            $('#slide-out .'+app.currentUrl.replace('/','-')).addClass('active').siblings().removeClass('active');
+        }
+    },
 };
 app.appInit();
