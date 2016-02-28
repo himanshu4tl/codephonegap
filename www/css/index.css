@@ -4,3 +4,6 @@ input{
     position: absolute;
     left: 45%;top:45%
 }
+.detail p{
+    margin: 0;
+}

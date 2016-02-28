@@ -42,8 +42,8 @@ var app={
     alert:function(msg){Materialize.toast(msg,2000);},
     loadAjaxPage:function(url){
         console.log(url);
-        if(url=='#'){return false;}
         url=url.split('/');
+        if(url[url.length-1]=='#'){return false;}
         this.currentUrl=url[url.length-2]+'/'+url[url.length-1];
         app.startLoader();
         $.ajax({
