@@ -6,6 +6,7 @@ String.prototype.replaceAll = function(search, replacement) {return this.replace
 var app={
     defaultPage:'site/login',
     baseUrl:'http://mr-solutions.in/yogesh/members/api/',
+    //baseUrl:'http://localhost/yogesh/members/api/',
     mainContainer:$('#contentView'),
     translateHtml:function(html,object){
         $.each(object,function(index,value){html=html.replaceAll(index,value);});return html;
