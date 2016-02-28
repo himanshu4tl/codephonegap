@@ -23,7 +23,6 @@ var app={
     appInit:function(){
         $('#slide-out a').on('click',function(e){
             e.preventDefault();
-            //$(this).parent().addClass('active').siblings().removeClass('active');
             app.loadAjaxPage(this.href);
             $('.button-collapse').sideNav('hide');
         });
@@ -77,13 +76,12 @@ var app={
     },
     setUserLogout:function(){
         localStorage['id']=app.id='';
-        $('.site-memberdetails').hide();
-        $('.site-logout').hide();
+        $('.auth').hide();
         $('.site-login').show();
     },
     setUserLogin:function(){
-        $('.site-logout').show();
-        $(".site-login").hide().next().show();
+        $(".auth").show();
+        $(".site-login").hide();
     },
     afterRout:function(){
         if(app.currentUrl){
