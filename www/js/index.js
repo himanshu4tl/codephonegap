@@ -4,8 +4,8 @@ $(".button-collapse").sideNav();
 String.prototype.replaceAll = function(search, replacement) {return this.replace(new RegExp(search, 'g'), replacement);};
 
 var app={
-    defaultPage:'site/login?t=p',
-    baseUrl:'http://localhost/test/angular/web/',
+    defaultPage:'site/login',
+    baseUrl:'http://mr-solutions.in/yogesh/members/api/',
     mainContainer:$('#contentView'),
     translateHtml:function(html,object){
         $.each(object,function(index,value){html=html.replaceAll(index,value);});return html;
@@ -14,7 +14,7 @@ var app={
         return this.translateHtml($('#'+templateID).html(),data);
     },
     loadDefaultPage:function(){
-      this.loadAjaxPage(this.defaultPage);
+        this.loadAjaxPage(this.defaultPage);
     },
     appInit:function(){
         $('a').on('click',function(e){e.preventDefault();app.loadAjaxPage(this.href);});
@@ -30,10 +30,10 @@ var app={
         console.log(templateId);
         this.renderHtml(this.creteHtml(templateId,{}));
     },
-    alert:function(msg){alert(msg);},
+    alert:function(msg){Materialize.toast(msg,2000);},
     loadAjaxPage:function(url){
         console.log(url);
-        url=url.split('/')
+        url=url.split('/');
         $.get(this.baseUrl+url[url.length-2]+'/'+url[url.length-1],function(response){app.renderHtml(response);})
     },
     AjaxForm:function(obj){
