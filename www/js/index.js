@@ -8,6 +8,7 @@ var app={
     baseUrl:'http://mr-solutions.in/yogesh/members/api/',
     //baseUrl:'http://localhost/yogesh/members/api/',
     mainContainer:$('#contentView'),
+    id:0,
     translateHtml:function(html,object){
         $.each(object,function(index,value){html=html.replaceAll(index,value);});return html;
     },
@@ -35,12 +36,22 @@ var app={
     loadAjaxPage:function(url){
         console.log(url);
         url=url.split('/');
-        $.get(this.baseUrl+url[url.length-2]+'/'+url[url.length-1],function(response){app.renderHtml(response);})
+        $.ajax({
+            url:this.baseUrl+url[url.length-2]+'/'+url[url.length-1]+'?id='+app.id,
+            type:'get',
+            success:function(response){
+                app.renderHtml(response);
+            },
+            error:function(e){console.log(e);}
+        });
     },
     AjaxForm:function(obj){
         var $this=$(obj);
-        $.ajax({url:$this.prop('action'),data:$this.serialize(),type:'post',datatype:'json',
+        $.ajax({url:$this.prop('action'),data:'id='+app.id+'&'+$this.serialize(),type:'post',datatype:'json',
             success:function(response){if(response.message){app.alert(response.message);}
+                if(response.id){app.id=response.id;}
+                if(response.name){app.id=response.name;}
+                if(response.email){app.id=response.email;}
                 if(response.status){app.loadAjaxPage(response.url);}
             },
             error:function(e){console.log(e);}
