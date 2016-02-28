@@ -10,6 +10,7 @@ var app={
     //baseUrl:'http://localhost/yogesh/members/api/',
     mainContainer:$('#contentView'),
     id:'',
+    loader:$('#mLoader'),
     translateHtml:function(html,object){
         $.each(object,function(index,value){html=html.replaceAll(index,value);});return html;
     },
@@ -44,26 +45,30 @@ var app={
         if(url=='#'){return false;}
         url=url.split('/');
         this.currentUrl=url[url.length-2]+'/'+url[url.length-1];
+        app.startLoader();
         $.ajax({
             url:this.baseUrl+this.currentUrl+'?id='+app.id,
             type:'get',
             success:function(response){
                 app.renderHtml(response);
                 app.afterRout();
+                app.stopLoader();
             },
-            error:function(e){console.log(e);}
+            error:function(e){console.log(e);app.stopLoader();}
         });
     },
     AjaxForm:function(obj){
         var $this=$(obj);
+        app.startLoader();
         $.ajax({url:$this.prop('action'),data:'id='+app.id+'&'+$this.serialize(),type:'post',datatype:'json',
             success:function(response){if(response.message){app.alert(response.message);}
                 if(response.id){localStorage['id']=app.id=response.id;app.setUserLogin();}
                 if(response.name){app.name=response.name;}
                 if(response.email){app.email=response.email;}
                 if(response.status){app.loadAjaxPage(response.url);}
+                app.stopLoader();
             },
-            error:function(e){console.log(e);}
+            error:function(e){console.log(e);app.stopLoader();}
         })
     },
     pageInit:function(){
@@ -84,6 +89,12 @@ var app={
         if(app.currentUrl){
             $('#slide-out .'+app.currentUrl.replace('/','-')).addClass('active').siblings().removeClass('active');
         }
+    },
+    startLoader:function(){
+      this.loader.show();
+    },
+    stopLoader:function(){
+      this.loader.hide();
     },
 };
 app.appInit();
