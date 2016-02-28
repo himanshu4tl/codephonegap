@@ -39,7 +39,7 @@ var app={
         console.log(templateId);
         this.renderHtml(this.creteHtml(templateId,{}));
     },
-    alert:function(msg){Materialize.toast(msg,2000);},
+    alert:function(msg){Materialize.toast(msg,5000);},
     loadAjaxPage:function(url){
         console.log(url);
         url=url.split('/');
