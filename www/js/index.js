@@ -59,7 +59,17 @@ var app={
     AjaxForm:function(obj){
         var $this=$(obj);
         app.startLoader();
-        $.ajax({url:$this.prop('action'),data:'id='+app.id+'&'+$this.serialize(),type:'post',datatype:'json',
+        var formData = new FormData($this[0]);
+        formData.append('id',app.id);
+        $.ajax({
+            url:$this.prop('action'),
+            data:formData,
+            type:'post',
+            datatype:'json',
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
             success:function(response){if(response.message){app.alert(response.message);}
                 if(response.id){localStorage['id']=app.id=response.id;app.setUserLogin();}
                 if(response.name){app.name=response.name;}
