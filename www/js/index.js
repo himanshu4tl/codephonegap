@@ -5,7 +5,7 @@ String.prototype.replaceAll = function(search, replacement) {return this.replace
 
 var app={
     defaultPage:'site/memberdetails',
-    baseUrl:'http://mr-solutions.in/yogesh/members/api/',
+    baseUrl:'http://idmrvault.com/members/api/',
     currentUrl:'',
     //baseUrl:'http://localhost/yogesh/members/api/',
     mainContainer:$('#contentView'),
