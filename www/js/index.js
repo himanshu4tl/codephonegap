@@ -40,10 +40,10 @@ var app={
     },
     alert:function(msg){Materialize.toast(msg,5000);},
     loadAjaxPage:function(url){
-        console.log(url);
         url=url.split('/');
         if(url[url.length-1]=='#'){return false;}
         this.currentUrl=url[url.length-2]+'/'+url[url.length-1];
+        console.log(this.currentUrl);
         app.startLoader();
         $.ajax({
             url:this.baseUrl+this.currentUrl+'?token='+app.id,
@@ -61,8 +61,12 @@ var app={
         app.startLoader();
         var formData = new FormData($this[0]);
         formData.append('token',app.id);
+        var url=$this.prop('action');
+        url=url.split('/');
+        this.currentUrl=url[url.length-2]+'/'+url[url.length-1];
+        console.log(this.currentUrl);
         $.ajax({
-            url:$this.prop('action'),
+            url:this.baseUrl+this.currentUrl+'?token='+app.id,
             data:formData,
             type:'post',
             datatype:'json',
