@@ -4,15 +4,15 @@ $(".button-collapse").sideNav();
 String.prototype.replaceAll = function(search, replacement) {return this.replace(new RegExp(search, 'g'), replacement);};
 
 var app={
-    defaultPage:'site/memberdetails',
-    baseUrl:'http://idmrvault.com/members/api/',
+    defaultPage:'site/profile',
     currentUrl:'',
-    //baseUrl:'http://localhost/yogesh/members/api/',
+    baseUrl:'http://sateweb.com/gava/web/api/',
+    //baseUrl:'http://localhost/gava/web/api/',
     mainContainer:$('#contentView'),
     id:'',
     loader:$('#mLoader'),
     translateHtml:function(html,object){
-        $.each(object,function(index,value){html=html.replaceAll(index,value);});return html;
+        $.each(object,function(index,value){html=html.replaceAll('_'+index+'_',value);});return html;
     },
     creteHtml:function(templateID,data){
         return this.translateHtml($('#'+templateID).html(),data);
@@ -46,7 +46,7 @@ var app={
         this.currentUrl=url[url.length-2]+'/'+url[url.length-1];
         app.startLoader();
         $.ajax({
-            url:this.baseUrl+this.currentUrl+'?id='+app.id,
+            url:this.baseUrl+this.currentUrl+'?token='+app.id,
             type:'get',
             success:function(response){
                 app.renderHtml(response);
@@ -60,7 +60,7 @@ var app={
         var $this=$(obj);
         app.startLoader();
         var formData = new FormData($this[0]);
-        formData.append('id',app.id);
+        formData.append('token',app.id);
         $.ajax({
             url:$this.prop('action'),
             data:formData,
@@ -71,8 +71,10 @@ var app={
             contentType: false,
             processData: false,
             success:function(response){if(response.message){app.alert(response.message);}
-                if(response.id){localStorage['id']=app.id=response.id;app.setUserLogin();}
-                if(response.name){app.name=response.name;}
+                if(response.token){localStorage['id']=app.id=response.token;app.setUserLogin();}
+                if(response.data){
+                  app.setProfileData(response.data);
+                }
                 if(response.email){app.email=response.email;}
                 if(response.status){app.loadAjaxPage(response.url);}
                 app.stopLoader();
@@ -104,5 +106,9 @@ var app={
     stopLoader:function(){
       this.loader.hide();
     },
+    setProfileData:function(data){
+        $('#userLogo').html(app.creteHtml('userProfileTemplate',data));
+    },
+
 };
 app.appInit();
