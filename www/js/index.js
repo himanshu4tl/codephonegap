@@ -76,9 +76,6 @@ var app={
             processData: false,
             success:function(response){if(response.message){app.alert(response.message);}
                 if(response.token){localStorage['id']=app.id=response.token;app.setUserLogin();}
-                if(response.data){
-                  app.setProfileData(response.data);
-                }
                 if(response.email){app.email=response.email;}
                 if(response.status){app.loadAjaxPage(response.url);}
                 app.stopLoader();

@@ -17,15 +17,17 @@
     <body>
     <!-- Header Start -->
     <div class="navbar-fixed">
-        <nav class="light-blue lighten-1" role="navigation">
+        <nav class="light-green accent-4" role="navigation">
             <div class="nav-wrapper container">
                 <a id="logo-container"  class="brand-logo">GAWA</a>
                 <ul id="slide-out" class="side-nav">
-                    <li id="userLogo" class="auth">
-                        <img src="" alt="" style="height: 73px;width: 73px;" class="circle user-img responsive-img">
+                    <li id="userLogo" class="auth lineheight26 padding0" >
+
                     </li>
                     <li class="active site-login"><a href="site/login" >Login</a></li>
                     <li class="site-profile auth" style="display: none;"><a href="site/profile" >Profile</a></li>
+                    <li class="site-about " ><a href="#"  onclick="app.loadPage('aboutTemplate');app.currentUrl='site/about';app.afterRout();">About</a></li>
+                    <li class="site-support " ><a href="#" onclick="app.loadPage('supportTemplate');app.currentUrl='site/support';app.afterRout();">Support</a></li>
                     <li class="site-logout auth" style="display: none;"><a href="site/login"  onclick="app.setUserLogout();">Logout</a></li>
                 </ul>
                 <a  data-activates="slide-out" class="button-collapse hide-on-large"><i class="mdi-navigation-menu"></i></a>
@@ -86,8 +88,36 @@
     </div>
     <!-- Page Content End -->
 
+    <script type="text/html" id="aboutTemplate">
+        <div class="row detail"  style="margin: 30px;   ">
+            <div class="col s12 m12 z-depth-1 center" >
+                <a href="site/profile" class="btn-floating  waves-effect waves-light red right flotbtn" ><i class="material-icons">power_settings_new</i></a>
+                <h5>about</h5>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+        </div>
+    </script>
+    <script type="text/html" id="supportTemplate">
+        <div class="row detail"  style="margin: 30px;   ">
+            <div class="col s12 m12 z-depth-1 center" >
+                <a href="site/profile" class="btn-floating  waves-effect waves-light red right flotbtn" ><i class="material-icons">power_settings_new</i></a>
+                <h5>support</h5>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            </div>
+        </div>
+    </script>
     <script type="text/html" id="userProfileTemplate">
-        <img src="" alt="" style="height: 73px;width: 73px;" class="circle user-img responsive-img">
+        <div class="sidebg height80 ">
+
+        <div class="left height80">
+
+            <img src="_s_logo_" alt=""  class="circle user-img responsive-img marginL10 imageHW">
+        </div>
+        <div class="sidebar-text right height80 marginT10">
+            _s_name_ <br>_s_email_
+        </div>
+        </div>
+
     </script>
     <!-- Jacascript Start-->
     <script type="text/javascript" src="cordova.js"></script>
