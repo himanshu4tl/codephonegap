@@ -52,9 +52,9 @@ var app={
             url:this.baseUrl+this.currentUrl+'?token='+app.id,
             type:'get',
             success:function(response){
+                app.stopLoader();
                 app.renderHtml(response);
                 app.afterRout();
-                app.stopLoader();
             },
             error:function(e){console.log(e);app.stopLoader();}
         });
@@ -77,11 +77,12 @@ var app={
             cache: false,
             contentType: false,
             processData: false,
-            success:function(response){if(response.message){app.alert(response.message);}
+            success:function(response){
+                app.stopLoader();
+                if(response.message){app.alert(response.message);}
                 if(response.token){localStorage['id']=app.id=response.token;app.setUserLogin();}
                 if(response.email){app.email=response.email;}
                 if(response.status){app.loadAjaxPage(response.url);}
-                app.stopLoader();
             },
             error:function(e){console.log(e);app.stopLoader();}
         })

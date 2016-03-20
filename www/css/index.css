@@ -11,8 +11,13 @@ input{
     background-color: #64dd17 !important;
 }
 .sidebg{
-    background:url("http://sateweb.com/gava/web/upload/images/sidebg.jpg");
+    background:url("../img/sidebg.jpg");
 }
+/*
+body{
+    background:url("../img/map_img.png");
+}
+*/
 .margin0{
     margin: 0;
 }
