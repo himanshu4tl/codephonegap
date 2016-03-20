@@ -106,10 +106,10 @@ var app={
         }
     },
     startLoader:function(){
-      this.loader.show();
+      app.loader.show();
     },
     stopLoader:function(){
-      this.loader.hide();
+        app.loader.hide();
     },
     setProfileData:function(data){
         $('#userLogo').html(app.creteHtml('userProfileTemplate',data));
