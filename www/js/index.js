@@ -37,11 +37,13 @@ var app={
     loadPage:function(templateId){
         console.log(templateId);
         this.renderHtml(this.creteHtml(templateId,{}));
+        app.stopLoader();
         this.afterLoadPage(templateId);
     },
     alert:function(msg){Materialize.toast(msg,5000);},
     loadAjaxPage:function(url){
         url=url.split('/');
+        console.log(url[url.length-1]);
         if(url[url.length-1]=='#'){return false;}
         this.currentUrl=url[url.length-2]+'/'+url[url.length-1];
         console.log(this.currentUrl);
