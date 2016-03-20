@@ -6,7 +6,7 @@
         <meta name="msapplication-tap-highlight" content="no">
 
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
         <!--Let browser know website is optimized for mobile-->
@@ -24,11 +24,12 @@
                     <li id="userLogo" class="auth lineheight26 padding0" >
 
                     </li>
-                    <li class="active site-login"><a href="site/login" >Login</a></li>
+                    <li class="active site-login"><a href="#"  onclick="app.loadPage('loginTemplate');app.currentUrl='site/index';app.afterRout();" >Login</a></li>
                     <li class="site-profile auth" style="display: none;"><a href="site/profile" >Profile</a></li>
+                    <li class="site-distance auth" style="display: none;"><a href="#"  onclick="app.loadPage('distanceTemplate');app.currentUrl='site/distance';app.afterRout();">Distance</a></li>
                     <li class="site-about " ><a href="#"  onclick="app.loadPage('aboutTemplate');app.currentUrl='site/about';app.afterRout();">About</a></li>
                     <li class="site-support " ><a href="#" onclick="app.loadPage('supportTemplate');app.currentUrl='site/support';app.afterRout();">Support</a></li>
-                    <li class="site-logout auth" style="display: none;"><a href="site/login"  onclick="app.setUserLogout();">Logout</a></li>
+                    <li class="site-logout auth" style="display: none;"><a href="#"  onclick="app.setUserLogout();app.loadPage('loginTemplate');app.currentUrl='site/index';app.afterRout();">Logout</a></li>
                 </ul>
                 <a  data-activates="slide-out" class="button-collapse hide-on-large"><i class="mdi-navigation-menu"></i></a>
             </div>
@@ -36,7 +37,7 @@
     </div>
     <!-- Header End -->
     <!-- page loader start-->
-    <div id="mLoader" style="/*display: none;*/">
+    <div id="mLoader" style="display: none;">
     <div class="loader-wrapepr">
         <div class=" preloader-wrapper big active">
             <div class="spinner-layer spinner-blue">
@@ -88,10 +89,14 @@
     </div>
     <!-- Page Content End -->
 
+    <script type="text/html" id="profileTemplate">
+
+    </script>
+
     <script type="text/html" id="aboutTemplate">
         <div class="row detail"  style="margin: 30px;   ">
             <div class="col s12 m12 z-depth-1 center" >
-                <a href="site/profile" class="btn-floating  waves-effect waves-light red right flotbtn" ><i class="material-icons">power_settings_new</i></a>
+                <a href="site/profile" class="btn-floating  waves-effect waves-light red right flotbtn" ><i class="fa fa-times"></i></a>
                 <h5>about</h5>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
             </div>
@@ -100,12 +105,102 @@
     <script type="text/html" id="supportTemplate">
         <div class="row detail"  style="margin: 30px;   ">
             <div class="col s12 m12 z-depth-1 center" >
-                <a href="site/profile" class="btn-floating  waves-effect waves-light red right flotbtn" ><i class="material-icons">power_settings_new</i></a>
+                <a href="site/profile" class="btn-floating  waves-effect waves-light red right flotbtn" ><i class="fa fa-times"></i></a>
                 <h5>support</h5>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
             </div>
         </div>
     </script>
+
+    <script type="text/html" id="signupTemplate">
+        <div class="row" style="margin-top:20px;">
+            <form class="col s12" role="form" enctype="multipart/form-data" action="/api/site/signup" method="post">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="s_name" type="text" name="s_name" class="validate">
+                        <label for="email">Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="text" name="s_email" class="validate">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password" name="s_password" type="password" class="validate">
+                        <label for="password" >Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="s_contact" type="text" name="s_contact" class="validate">
+                        <label for="s_contact">Contact</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="s_zip" type="text" name="s_zip" class="validate">
+                        <label for="s_zip">Postcode</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col s12 center">
+                        <button type="submit" class="waves-effect waves-light btn light-green accent-4" name="loginBtn">Submit<i class="material-icons right"></i></button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+</script>
+    <script type="text/html" id="loginTemplate">
+        <div class="row" style="margin-top: 30%;">
+            <form class="col s12" role="form" enctype="multipart/form-data" action="/site/login" method="post">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="email" type="text" name="s_email" class="validate">
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password" name="s_password" type="password" class="validate">
+                        <label for="password" >Password</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 center">
+                        <button type="submit" class="waves-effect waves-light btn light-green accent-4" name="loginBtn">&nbsp;Login&nbsp;<i class="material-icons right"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 center">
+                        <a href="#" onclick="app.loadPage('signupTemplate');app.currentUrl='site/index';app.afterRout();" class="waves-effect waves-light btn light-green accent-4" name="loginBtn">Signup<i class="material-icons right"></i></a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </script>
+
+    <script type="text/html" id="distanceTemplate">
+        <div class="row detail"  style="margin: 30px;   ">
+            <div class="col s12 m12 z-depth-1 center" >
+                <a href="site/profile" class="btn-floating  waves-effect waves-light red right flotbtn" ><i class="fa fa-times"></i></a>
+                <h5>Distance</h5>
+                <p>Lorem Ipsum is simply dummy text</p>
+                <br>
+                <div style="height: 100px;width: 100px;margin: auto;" class=" blue circle">
+                    <i class="fa fa-map-marker fa-2x red-text" style="margin-top: 33px;" ></i>
+                </div>
+                <input style="width: 33%;" value="3.5" type="number" id="distance"  onchange="localStorage['distance']=this.value;"><span>Km</span>
+                <br>
+            </div>
+        </div>
+    </script>
+
     <script type="text/html" id="userProfileTemplate">
         <div class="sidebg height80 ">
 
@@ -119,6 +214,7 @@
         </div>
 
     </script>
+
     <!-- Jacascript Start-->
     <script type="text/javascript" src="cordova.js"></script>
 

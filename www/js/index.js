@@ -6,8 +6,8 @@ String.prototype.replaceAll = function(search, replacement) {return this.replace
 var app={
     defaultPage:'site/profile',
     currentUrl:'',
-    baseUrl:'http://sateweb.com/gava/web/index.php/api/',
-    //baseUrl:'http://localhost/gava/web/api/',
+    //baseUrl:'http://sateweb.com/gava/web/index.php/api/',
+    baseUrl:'http://localhost/gava/web/api/',
     mainContainer:$('#contentView'),
     id:'',
     loader:$('#mLoader'),
@@ -18,7 +18,7 @@ var app={
         return this.translateHtml($('#'+templateID).html(),data);
     },
     loadDefaultPage:function(){
-        if(this.id){this.loadAjaxPage(this.defaultPage);}else{this.loadAjaxPage('site/login');}
+        if(this.id){this.loadAjaxPage(this.defaultPage);}else{app.loadPage('loginTemplate');app.currentUrl='site/index';app.afterRout();}
     },
     appInit:function(){
         $('#slide-out a').on('click',function(e){
@@ -37,6 +37,7 @@ var app={
     loadPage:function(templateId){
         console.log(templateId);
         this.renderHtml(this.creteHtml(templateId,{}));
+        this.afterLoadPage(templateId);
     },
     alert:function(msg){Materialize.toast(msg,5000);},
     loadAjaxPage:function(url){
@@ -109,6 +110,14 @@ var app={
     },
     setProfileData:function(data){
         $('#userLogo').html(app.creteHtml('userProfileTemplate',data));
+    },
+    afterLoadPage:function(templateId){
+        if(templateId=="loginTemplate"){
+
+        }
+        if(templateId=="distanceTemplate"){
+            $('#distance').val(localStorage['distance']);
+        }
     },
 
 };
