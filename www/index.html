@@ -276,6 +276,16 @@
                         <a href="#" onclick="app.loadPage('signupTemplate',$('loginLink'));" class="waves-effect waves-light btn light-green accent-4" name="loginBtn">Signup<i class="material-icons right"></i></a>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col s12 center">
+                        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+                        </fb:login-button>
+
+                        <div id="status">
+                        </div>
+                    </div>
+                </div>
+
 
             </form>
         </div>
