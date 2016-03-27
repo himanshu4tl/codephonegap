@@ -17,13 +17,13 @@
  specific language governing permissions and limitations
  under the License.
 -->
-<widget id="io.tech.gawaseller" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>GaWa-seller</name>
+<widget id="io.techno.codephonegap" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>IDMR</name>
     <description>
-        Code for GaWa-seller demo.
+        Code for IDMR demo.
     </description>
-    <author email="admin@sateweb.com" href="http://sateweb.com/">
-        sateweb
+    <author email="admin@MrSolutions.in" href="http://mr-solutions.in/">
+        MrSolutions
     </author>
     <content src="index.html" />
 	<!-- Whitelist configuration. Refer to https://cordova.apache.org/docs/en/edge/guide_appdev_whitelist_index.md.html -->
